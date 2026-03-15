@@ -1,0 +1,100 @@
+/* Team Logo Styling */
+.team-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-right: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  transition: transform 0.2s ease;
+}
+
+.team-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Fallback styling for when logos don't load */
+.team-logo-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 34px;
+  height: 34px;
+  margin-right: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Points Table specific styling */
+.points-table .team-logo {
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+}
+
+.points-table .team-logo-fallback {
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+}
+
+/* Team cell layout */
+.team-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-name {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.team-code {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+  .team-logo {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .team-logo-fallback {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .points-table .team-logo {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .points-table .team-logo-fallback {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .team-name {
+    font-size: 13px;
+  }
+  
+  .team-code {
+    font-size: 11px;
+  }
+}
