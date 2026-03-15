@@ -28,6 +28,6 @@ export default defineConfig({
   preview: {
     host: true,
     port: 4173,
-    allowedHosts: 'all'
+    allowedHosts: ["major-project-36w1.onrender.com"]
   }
 })
