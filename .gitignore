@@ -9,11 +9,12 @@ frontend/dist/
 backend/dist/
 
 # Environment variables
-.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+# Allow frontend .env for deployment
+!frontend/.env
 
 # Logs
 logs

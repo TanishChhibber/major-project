@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { apiFetch } from '../config/api'
 
 export default function PlayerDropdown({ value, onChange, placeholder = "Select player", className = "" }) {
   const [players, setPlayers] = useState([])
@@ -13,7 +14,7 @@ export default function PlayerDropdown({ value, onChange, placeholder = "Select 
     const fetchPlayers = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/players')
+        const response = await apiFetch('/api/players')
         if (response.ok) {
           const data = await response.json()
           setPlayers(data.players || [])

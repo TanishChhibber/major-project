@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Brain, TrendingUp, Users, Target, Award } from 'lucide-react'
 import PlayerDropdown from './PlayerDropdown'
+import { apiFetch } from '../config/api'
 
 export default function MLPredictions({ seasonData }) {
   const [teams, setTeams] = useState([])
@@ -28,7 +29,7 @@ export default function MLPredictions({ seasonData }) {
   useEffect(() => {
     const fetchTeamsAndVenues = async () => {
       try {
-        const response = await fetch('/api/teams')
+        const response = await apiFetch('/api/teams')
         if (response.ok) {
           const data = await response.json()
           setTeams(data.teams || [])
@@ -57,7 +58,7 @@ export default function MLPredictions({ seasonData }) {
     setMatchPrediction(prev => ({ ...prev, loading: true }))
 
     try {
-      const response = await fetch('/api/predict', {
+      const response = await apiFetch('/api/predict/match', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

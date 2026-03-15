@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { apiFetch } from '../config/api'
 
 export function useSeasonData(season) {
   const [data, setData] = useState(null)
@@ -13,7 +14,7 @@ export function useSeasonData(season) {
         setError(null)
 
         // First, fetch available seasons
-        const seasonsResponse = await fetch(`/api/seasons`)
+        const seasonsResponse = await apiFetch('/api/seasons')
         if (seasonsResponse.ok) {
           const seasons = await seasonsResponse.json()
           setAvailableSeasons(seasons.sort((a, b) => b - a)) // Sort descending
@@ -24,7 +25,7 @@ export function useSeasonData(season) {
         const seasonYear = season ? season.match(/\d{4}/)?.[0] || season : season
         console.log(`Fetching data for season: ${seasonYear}`)
         
-        const response = await fetch(`/api/season/${seasonYear}`)
+        const response = await apiFetch(`/api/season/${seasonYear}`)
         
         if (!response.ok) {
           throw new Error(`Failed to fetch season data: ${response.status}`)
