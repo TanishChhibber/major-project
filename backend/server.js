@@ -238,11 +238,50 @@ let cache = {
   lastUpdated: null
 }
 
-// Load data on startup
-loadData()
+// Load data on startup and start server
+async function startServer() {
+  try {
+    console.log('Loading data...')
+    await loadData()
+    console.log('Data loaded successfully, starting server...')
+    
+    // Start server only after data is loaded
+    const server = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`IPL Analytics API server running on port ${PORT}`)
+      console.log(`Health check: http://localhost:${PORT}/api/health`)
+      console.log('Ready to serve requests!')
+      console.log(`Server bound to ${PORT} for Render deployment`)
+    })
+    
+    // Handle server errors
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`)
+      } else {
+        console.error('Server error:', error)
+      }
+      process.exit(1)
+    })
+    
+  } catch (error) {
+    console.error('Failed to start server:', error)
+    process.exit(1)
+  }
+}
+
+// Start the server
+startServer()
 
 // Refresh data every hour
-setInterval(loadData, 60 * 60 * 1000)
+setInterval(async () => {
+  try {
+    console.log('Refreshing data...')
+    await loadData()
+    console.log('Data refreshed successfully')
+  } catch (error) {
+    console.error('Failed to refresh data:', error)
+  }
+}, 60 * 60 * 1000)
 
 // Routes
 
@@ -1160,9 +1199,4 @@ app.use((err, req, res, next) => {
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' })
-})
-
-app.listen(PORT, () => {
-  console.log(`IPL Analytics API server running on port ${PORT}`)
-  console.log(`Health check: http://localhost:${PORT}/api/health`)
 })
